@@ -66,7 +66,13 @@
     message = undefined;
     solutions = undefined;
     loading = true;
-    requestIdleCallback(async () => {
+
+    // @ts-ignore
+    const executeCallback = window.requestIdleCallback
+      ? (f: IdleRequestCallback) => requestIdleCallback(f, {timeout: 1000})
+      : (f: IdleRequestCallback) => setTimeout(f, 10); // Safari doesn't support requestIdleCallback 🙃
+
+    executeCallback(async () => {
       const result = await doSolve(puzzleLetters);
       if (result.status === 'invalid_puzzle') {
         message = 'Invalid Puzzle 😳';
@@ -76,7 +82,7 @@
         solutions = result.solutions;
       }
       loading = false;
-    }, { timeout: 1000 });
+    });
   }
 
 
