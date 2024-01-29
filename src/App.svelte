@@ -137,26 +137,34 @@
       </div>
     </form>
 
+    <div class="horizontalDivider">
+    </div>
+
     {#if message}
       <h2 class="message">
         {message}
       </h2>
     {/if}
 
-    <div class="solutionsTableContainer">
+    <div class="solutionsContainer">
       {#if solutions}
-        <h3>Solutions</h3>
-        <table class="solutions">
-          <tbody>
-              {#each solutions as solution}
-                <tr>
-                  <td class="solution">
-                    {solution.join(' ')}
-                  </td>
-                </tr>
-              {/each}
-          </tbody>
-        </table>
+        <div class="solutionsTableSegment">
+          <div class="solutionsTableHeader">
+            <h4>Solutions</h4>
+          </div>
+          <div class="solutionsTableWrapper">
+              <table class="solutions">
+                <tbody>
+                    {#each solutions as solution}
+                      <tr class="solution">
+                        <td>{solution[0] || ""}</td>
+                        <td>{solution?.[1] || ""}</td>
+                      </tr>
+                    {/each}
+                </tbody>
+              </table>
+          </div>
+        </div>
       {/if}
     </div>
   </div>
@@ -174,6 +182,12 @@
   @media (width <= 800px) {
     h1 {
       font-size: xx-large;
+    }
+  }
+  @media (width > 800px) {
+    h1 {
+      font-size: 3.2em;
+      line-height: 1.1;
     }
   }
   div.content {
@@ -197,22 +211,66 @@
     padding-left: 1.4em;
     box-sizing: border-box;
   }
-  .solutionsTableContainer {
+  div.horizontalDivider {
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-color: var(--divider-color);
+  }
+  .solutionsContainer {
+    min-height: 0px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .solutionsTableHeader {
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border-color);
+    border-collapse: collapse;
+    box-sizing: border-box;
+    border-bottom-width: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .solutionsTableHeader h3, h4 {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  .solutionsTableSegment {
+    display: flex;
+    flex-direction: column;
     overflow: scroll;
+    padding: 1em;
     padding-left: 2em;
     padding-right: 2em;
   }
-  .solutionsTableContainer {
+  .solutionsTableWrapper {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: var(--border-color);
     text-align: center;
+    max-width: 600px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
   }
   table.solutions {
+    text-align: left;
     margin: auto;
-    border-style: solid;
     border-collapse: collapse;
   }
   table.solutions td {
     border-style: solid;
-    padding: 4px;
+    border-width: 0px;
+    border-bottom-width: 1px;
+    padding: 2px;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-color: var(--table-divider-color);
+  }
+  table.solutions tr:last-child td {
+    border-bottom-width: 0px;
   }
   main {
     display: contents;
@@ -220,9 +278,13 @@
     flex-direction: column;
     align-content: space;
     align-items: center;
-    padding: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
     box-sizing: border-box;
-    max-height: 90dvh;
+
+    max-height: 100%;
+    min-height: 0px;
+    overflow: hidden;
   }
   form.solvePuzzleForm {
     display: flex;
@@ -238,8 +300,16 @@
     height: 2em;
     font-size: large;
   }
-  div.spacer {
-    height: 50px;
-    flex-shrink: 0;
+  @media (height > 1000px) {
+    div.spacer {
+      height: 4em;
+      flex-shrink: 0;
+    }
+  }
+  @media (height <= 1000px) {
+    div.spacer {
+      height: 2em;
+      flex-shrink: 0;
+    }
   }
 </style>

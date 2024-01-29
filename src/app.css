@@ -22,24 +22,25 @@ a:hover {
   color: #535bf2;
 }
 
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  overflow: hidden;
 }
 
 #app {
-  width: min(1280px, 100vw);
-  height: min(1280px, 100vh);
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   text-align: center;
+  overflow: hidden;
 }
 
 button {
@@ -63,8 +64,11 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --main-color: #213547;
+    --main-background-color: #ffffff;
+    --divider-color: #cccccc;
+    --border-color: #aaaaaa;
+    --table-divider-color: #dddddd;
   }
   a:hover {
     color: #747bff;
@@ -75,7 +79,15 @@ button:focus-visible {
 }
 @media (prefers-color-scheme: dark) {
   body {
-    color: #ffffff;
-    background: #292929;
+    --main-color: #ffffff;
+    --main-background-color: #292929;
+    --divider-color: #555555;
+    --border-color: #777777;
+    --table-divider-color: #666666;
   }
+}
+
+body {
+  color: var(--main-color);
+  background-color: var(--main-background-color);
 }
