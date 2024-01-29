@@ -248,6 +248,7 @@
     display: flex;
     flex-direction: column;
     overflow: scroll;
+    overflow-x: hidden;
     padding: 1em;
     padding-left: 2em;
     padding-right: 2em;
