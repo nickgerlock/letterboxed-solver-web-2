@@ -62,7 +62,6 @@
 
   function onSubmit(event: Event) {
     event.preventDefault();
-    console.log("submitting")
     message = undefined;
     solutions = undefined;
     loading = true;
@@ -84,7 +83,6 @@
       loading = false;
     });
   }
-
 
   function getFormattedPuzzleLetters(string: string, isBackspacing=false) {
     const cleanedString = puzzleLetters.replace(/[^a-zA-Z]/g, '').toUpperCase();
@@ -179,10 +177,13 @@
     }
   }
   div.content {
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     gap: 1em;
+    flex-grow: 0;
+    flex-shrink: 1;
+    width: 100%;
   }
   /* div.inputWrapper {
     border: solid 1px black;
@@ -197,7 +198,6 @@
     box-sizing: border-box;
   }
   .solutionsTableContainer {
-    max-height: 400px;
     overflow: scroll;
     padding-left: 2em;
     padding-right: 2em;
@@ -206,6 +206,7 @@
     text-align: center;
   }
   table.solutions {
+    margin: auto;
     border-style: solid;
     border-collapse: collapse;
   }
@@ -218,8 +219,10 @@
     display: flex;
     flex-direction: column;
     align-content: space;
-    height: 90vh;
     align-items: center;
+    padding: 1em;
+    height: 100%;
+    box-sizing: border-box;
   }
   form.solvePuzzleForm {
     display: flex;
@@ -237,5 +240,6 @@
   }
   div.spacer {
     height: 50px;
+    flex-shrink: 0;
   }
 </style>
