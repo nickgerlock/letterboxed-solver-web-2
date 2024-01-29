@@ -149,20 +149,22 @@
     <div class="solutionsContainer">
       {#if solutions}
         <div class="solutionsTableSegment">
-          <div class="solutionsTableHeader">
-            <h4>Solutions</h4>
-          </div>
-          <div class="solutionsTableWrapper">
-              <table class="solutions">
-                <tbody>
-                    {#each solutions as solution}
-                      <tr class="solution">
-                        <td>{solution[0] || ""}</td>
-                        <td>{solution?.[1] || ""}</td>
-                      </tr>
-                    {/each}
-                </tbody>
-              </table>
+          <div class="tableAndHeaderGroup">
+            <div class="solutionsTableHeader">
+              <h4>Solutions</h4>
+            </div>
+            <div class="solutionsTableWrapper">
+                <table class="solutions">
+                  <tbody>
+                      {#each solutions as solution}
+                        <tr class="solution">
+                          <td>{solution[0] || ""}</td>
+                          <td>{solution?.[1] || ""}</td>
+                        </tr>
+                      {/each}
+                  </tbody>
+                </table>
+            </div>
           </div>
         </div>
       {/if}
@@ -223,6 +225,10 @@
     display: flex;
     flex-direction: column;
   }
+  .tableAndHeaderGroup {
+    display: flex;
+    flex-direction: column;
+  }
   .solutionsTableHeader {
     border-width: 1px;
     border-style: solid;
@@ -232,6 +238,7 @@
     border-bottom-width: 0px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    max-width: 600px;
   }
   .solutionsTableHeader h3, h4 {
     margin-top: 0.5em;
@@ -244,6 +251,7 @@
     padding: 1em;
     padding-left: 2em;
     padding-right: 2em;
+    align-items: center;
   }
   .solutionsTableWrapper {
     border-width: 1px;
@@ -254,6 +262,7 @@
     max-width: 600px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
+    margin: auto;
   }
   table.solutions {
     text-align: left;
