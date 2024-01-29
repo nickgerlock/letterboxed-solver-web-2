@@ -221,8 +221,8 @@
     align-content: space;
     align-items: center;
     padding: 1em;
-    height: 100%;
     box-sizing: border-box;
+    max-height: 90dvh;
   }
   form.solvePuzzleForm {
     display: flex;
