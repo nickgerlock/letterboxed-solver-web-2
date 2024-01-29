@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+	<title>New Project</title>
+	<style>
+		.s0 { fill: #ff7a7a } 
+		.s1 { fill: #000000;stroke: #ffffff;stroke-miterlimit:0;stroke-width: 0;stroke-dasharray: NaN } 
+	</style>
+	<path id="Shape 1" class="s0" d="m-58-35h1134v1100h-1134z"/>
+	<path id="★" class="s1" aria-label="★"  d="m361.9 552.5l-242-176.5h299.5l93-284.5 93.5 284.5h299l-242 176.5 93 284-243.5-176-243 176z"/>
+</svg>
