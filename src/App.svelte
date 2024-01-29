@@ -108,51 +108,53 @@
 <main>
   <h1>Letter Boxed™️ Solver</h1>
   <div class="spacer"></div>
-  <form class="solvePuzzleForm" onsubmit={onSubmit}>
-    <div class="inputWrapper">
-      <input
-        class="puzzleLettersInput"
-        bind:value={puzzleLetters}
-        id="puzzle_letters"
-        type="text"
-        placeholder="ABC DEF GHI JKL"
-        title="Please enter 3 letters at a time, separated by spaces."
-        oninput={onPuzzleLettersInput}
-      >
-    </div>
+  <div class="content">
+    <form class="solvePuzzleForm" onsubmit={onSubmit}>
+      <div class="inputWrapper">
+        <input
+          class="puzzleLettersInput"
+          bind:value={puzzleLetters}
+          id="puzzle_letters"
+          type="text"
+          placeholder="ABC DEF GHI JKL"
+          title="Please enter 3 letters at a time, separated by spaces."
+          oninput={onPuzzleLettersInput}
+        >
+      </div>
 
-    <div class="uniqueLettersMessage">
-      {#if !hasUniqueLetters(puzzleLetters)}
-        Puzzle must contain no repeated letters.
+      <div class="uniqueLettersMessage">
+        {#if !hasUniqueLetters(puzzleLetters)}
+          Puzzle must contain no repeated letters.
+        {/if}
+      </div>
+
+      <div>
+        <input disabled={submitDisabled(puzzleLetters)} class="findSolutionsButton" id="submit" type="submit" value={getSolveButtonText(loading)}>
+      </div>
+    </form>
+
+    {#if message}
+      <h2 class="message">
+        {message}
+      </h2>
+    {/if}
+
+    <div class="solutionsTableContainer">
+      {#if solutions}
+        <h3>Solutions</h3>
+        <table class="solutions">
+          <tbody>
+              {#each solutions as solution}
+                <tr>
+                  <td class="solution">
+                    {solution.join(' ')}
+                  </td>
+                </tr>
+              {/each}
+          </tbody>
+        </table>
       {/if}
     </div>
-
-    <div>
-      <input disabled={submitDisabled(puzzleLetters)} class="findSolutionsButton" id="submit" type="submit" value={getSolveButtonText(loading)}>
-    </div>
-  </form>
-
-  {#if message}
-    <h2 class="message">
-      {message}
-    </h2>
-  {/if}
-
-  <div class="solutionsTableContainer">
-    {#if solutions}
-      <h3>Solutions</h3>
-      <table class="solutions">
-        <tbody>
-            {#each solutions as solution}
-              <tr>
-                <td class="solution">
-                  {solution.join(' ')}
-                </td>
-              </tr>
-            {/each}
-        </tbody>
-      </table>
-    {/if}
   </div>
 </main>
 
@@ -165,6 +167,12 @@
     h1 {
       font-size: xx-large;
     }
+  }
+  div.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1em;
   }
   /* div.inputWrapper {
     border: solid 1px black;
@@ -183,8 +191,6 @@
     overflow: scroll;
     padding-left: 2em;
     padding-right: 2em;
-    padding-top: 1em;
-    padding-bottom: 1em;
   }
   .solutionsTableContainer {
     text-align: center;
