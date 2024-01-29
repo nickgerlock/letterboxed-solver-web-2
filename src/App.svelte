@@ -163,6 +163,10 @@
     /* font-family: Helvetica, sans-serif */
     font-family: Helvetica, sans-serif;
   }
+  body {
+    color: #292929;
+    background: #222222;
+  }
   @media (width <= 800px) {
     h1 {
       font-size: xx-large;
