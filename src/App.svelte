@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { findSolutions, quickGame } from 'letterboxed-solver';
+  import { onMount } from 'svelte';
+  import { initializeWordList, findSolutions, quickGame } from 'letterboxed-solver';
   import { chunk } from './lib/chunk';
 
-  type SolutionStatus = 'solved' | 'invalid_puzzle' | 'unsolvable_puzzle';
   type SolutionResult = { status: 'solved', solutions: string[][]} | { status: 'invalid_puzzle'} | {status: 'unsolvable_puzzle'};
 
   function submitDisabled(letters: string) {
@@ -106,6 +106,12 @@
 
     puzzleLetters = getFormattedPuzzleLetters(puzzleLetters, isBackspacing);
   }
+
+  onMount(async () => {
+    console.log("Loading word list...");
+    await initializeWordList();
+    console.log("Word list loaded.");
+  });
 
 </script>
 
@@ -270,23 +276,28 @@
     margin: auto;
     border-collapse: collapse;
   }
-  table.solutions td {
+
+  table.solutions tr {
+    display: flex;
+    flex-wrap: wrap;
     border-style: solid;
     border-width: 0px;
     border-bottom-width: 1px;
+    border-color: var(--table-divider-color);
+  }
+  table.solutions tr:last-child tr {
+    border-bottom-width: 0px;
+  }
+  table.solutions td {
+    flex: 1;
     padding: 2px;
     padding-left: 1em;
     padding-right: 1em;
-    border-color: var(--table-divider-color);
-  }
-  table.solutions tr:last-child td {
-    border-bottom-width: 0px;
   }
   main {
     display: contents;
     display: flex;
     flex-direction: column;
-    align-content: space;
     align-items: center;
     padding-top: 1em;
     padding-bottom: 1em;
@@ -299,8 +310,6 @@
   form.solvePuzzleForm {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
   }
   div.uniqueLettersMessage {
     height: 2em;
