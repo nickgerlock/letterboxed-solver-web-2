@@ -5,8 +5,8 @@
 
   type SolutionResult = { status: 'solved', solutions: string[][]} | { status: 'invalid_puzzle'} | {status: 'unsolvable_puzzle'};
 
-  function submitDisabled(letters: string) {
-    return !lettersValid(letters) || loading;
+  function submitDisabled() {
+    return !lettersValid(puzzleLetters) || loading;
   }
   
   function getSolveButtonText(loading: boolean) {
@@ -100,6 +100,7 @@
   }
 
   function onPuzzleLettersInput(event: Event & { currentTarget: HTMLInputElement}) {
+    console.log("input triggered")
     const inputEvent = event as (InputEvent & { currentTarget: HTMLInputElement});
     const isTyping = inputEvent?.inputType === 'insertText';
     const isBackspacing = inputEvent?.inputType === 'deleteContentBackward';
@@ -124,11 +125,11 @@
         <input
           class="puzzleLettersInput"
           bind:value={puzzleLetters}
+          oninput={onPuzzleLettersInput}
           id="puzzle_letters"
           type="text"
           placeholder="ABC DEF GHI JKL"
           title="Please enter 3 letters at a time, separated by spaces."
-          oninput={onPuzzleLettersInput}
         >
       </div>
 
@@ -139,7 +140,7 @@
       </div>
 
       <div>
-        <input disabled={submitDisabled(puzzleLetters)} class="findSolutionsButton" id="submit" type="submit" value={getSolveButtonText(loading)}>
+        <input disabled={submitDisabled()} class="findSolutionsButton" id="submit" type="submit" value={getSolveButtonText(loading)}>
       </div>
     </form>
 
@@ -227,13 +228,17 @@
   }
   .solutionsContainer {
     min-height: 0px;
-    overflow: hidden;
+    overflow-y: hidden;
     display: flex;
     flex-direction: column;
   }
   .tableAndHeaderGroup {
+    flex-wrap: wrap;
+    /* align-content: center; */
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    max-width: 480px;
   }
   .solutionsTableHeader {
     border-width: 1px;
@@ -244,7 +249,6 @@
     border-bottom-width: 0px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    max-width: 600px;
   }
   .solutionsTableHeader h3, h4 {
     margin-top: 0.5em;
@@ -252,29 +256,33 @@
   }
   .solutionsTableSegment {
     display: flex;
-    flex-direction: column;
     overflow: scroll;
-    overflow-x: hidden;
     padding: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .solutionsTableWrapper {
+    width: 100%;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
     border-color: var(--border-color);
     text-align: center;
-    max-width: 600px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    margin: auto;
+    min-width: fit-content;
   }
   table.solutions {
     text-align: left;
-    margin: auto;
     border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: fit-content;
+  }
+
+  table.solutions tbody {
+    min-width: fit-content;
   }
 
   table.solutions tr {
@@ -284,15 +292,15 @@
     border-width: 0px;
     border-bottom-width: 1px;
     border-color: var(--table-divider-color);
+    min-width: fit-content;
   }
   table.solutions tr:last-child tr {
     border-bottom-width: 0px;
   }
   table.solutions td {
-    flex: 1;
-    padding: 2px;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 2px 1em;
+    width: 50%;
+    min-width: fit-content;
   }
   main {
     display: contents;
@@ -305,7 +313,7 @@
 
     max-height: 100%;
     min-height: 0px;
-    overflow: hidden;
+    overflow-y: hidden;
   }
   form.solvePuzzleForm {
     display: flex;
@@ -330,5 +338,8 @@
       height: 2em;
       flex-shrink: 0;
     }
+  }
+  * {
+    box-sizing: border-box;
   }
 </style>
